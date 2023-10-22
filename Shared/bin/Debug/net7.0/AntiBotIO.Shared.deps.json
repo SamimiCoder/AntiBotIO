@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "AntiBotIO.Shared/1.0.0": {
+        "runtime": {
+          "AntiBotIO.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AntiBotIO.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

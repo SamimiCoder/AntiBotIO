@@ -1,0 +1,11 @@
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\bin\Debug\net7.0\AntiBotIO.Shared.deps.json
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\bin\Debug\net7.0\AntiBotIO.Shared.dll
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\bin\Debug\net7.0\AntiBotIO.Shared.pdb
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.AssemblyInfoInputs.cache
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.AssemblyInfo.cs
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.csproj.CoreCompileInputs.cache
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.dll
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\refint\AntiBotIO.Shared.dll
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\AntiBotIO.Shared.pdb
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Shared\obj\Debug\net7.0\ref\AntiBotIO.Shared.dll

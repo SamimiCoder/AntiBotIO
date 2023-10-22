@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "2aU+lWtXakKMw5QkDyQwwGwXgah7dde5ylj+s7tUaEMnRF+I6ryin2FJDYYK3FmyS78du/EhRe+l4bjXzaf2wA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.11\\microsoft.netcore.app.ref.7.0.11.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.11\\microsoft.windowsdesktop.app.ref.7.0.11.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.11\\microsoft.aspnetcore.app.ref.7.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
