@@ -13,7 +13,7 @@
 </EditForm>
 
 
-@if (!string.IsNullOrEmpty(apiResponse))
+@if (L_posts.Count > 0)
 {
     @foreach (var item in L_posts)
     {
@@ -26,74 +26,79 @@
             </div>
         </div>
     }
-
+}
+else if (!string.IsNullOrEmpty(apiResponse))
+{
+    <p>No posts found.</p>
 }
 
-
+/**
+ * <summary>
+ * This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
+ * </summary>
+ * <returns>
+ * A list of Post objects.
+ * </returns>
+ */
 @code {
     private string apiResponse;
-    private string PostCaption;
-    private string CommentCount;
-    private string PostId;
-    private string ShortCode;
-    private DateTime PostDate;
     List<Post> L_posts = new List<Post>();
     public async Task<List<Post>> GetPosts()
+{
+    Console.WriteLine("GetPosts method called"); // Add this line
+
+    // Kullanıcının girdiği verileri alın
+    var userName = posts.UserName;
+    var postCount = posts.PostCount;
+
+    // Web API'ye gönderilecek verileri oluşturun
+    var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
+
+    // Web API'ye istek gönderin
+    if (request.IsSuccessStatusCode)
     {
-        // Kullanıcının girdiği verileri alın
-        var userName = posts.UserName;
-        var postCount = posts.PostCount;
+        // Web API'den gelen yanıtı alın
+        apiResponse = await request.Content.ReadAsStringAsync();
 
-        // Web API'ye gönderilecek verileri oluşturun
-        var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
+        var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
 
-        // Web API'ye istek gönderin
-
-
-        if (request.IsSuccessStatusCode)
+        if (postCount > jsonResponse.data.items.Count)
         {
-            // Web API'den gelen yanıtı alın
-            apiResponse = await request.Content.ReadAsStringAsync();
-
-            @* var jsonResponse = Newtonsoft.Json.Linq.JObject.Parse(apiResponse); *@
-
-            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
-
-            if (jsonResponse.data.items.Count >= postCount)
-            {
-                for (int i = 0; i < postCount; i++)
-                {
-                    var item = jsonResponse.data.items[i];
-
-                    // Extract post data
-                    string postCaption = item.captions.items[0].ToString();
-                    string commentCount = item.comments.count.ToString();
-                    string postId = item.id.ToString();
-                    string shortCode = item.code.ToString();
-                    DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
-
-                    // Create object to hold data
-                    Post PostData = new Post();
-                    PostData.Caption = postCaption;
-                    PostData.CommentCount = commentCount;
-                    PostData.Id = postId;
-                    PostData.ShortCode = shortCode;
-                    PostData.Date = postDate;
-
-                    // Add to list
-                    L_posts.Add(PostData);
-                }
-            }
-            else
-            {
-                // Handle the case where there are fewer items in the array than postCount
-            }
-            return L_posts;
-
+            postCount = jsonResponse.data.items.Count;
         }
-        else
+
+        for (int i = 0; i < postCount && i < jsonResponse.data.items.Count; i++)
         {
-            return L_posts;
+            var item = jsonResponse.data.items[i];
+
+            // Extract post data
+            string postCaption = string.Empty;
+            if (item.captions.items.Count > 0)
+            {
+                postCaption = item.captions.items[0].ToString();
+            }
+            string commentCount = item.comments.count.ToString();
+            string postId = item.id.ToString();
+            string shortCode = item.code.ToString();
+            DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
+
+            // Create object to hold data
+            Post PostData = new Post();
+            PostData.Caption = postCaption;
+            PostData.CommentCount = commentCount;
+            PostData.Id = postId;
+            PostData.ShortCode = shortCode;
+            PostData.Date = postDate;
+
+            // Add to list
+            L_posts.Add(PostData);
         }
+        return L_posts;
     }
+    else
+    {
+        // Handle the case where the request fails
+        return null;
+    }
+}
 }

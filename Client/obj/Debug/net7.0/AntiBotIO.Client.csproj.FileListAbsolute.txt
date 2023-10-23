@@ -837,3 +837,4 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\rss
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\d469d8fcf2.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\gvadmnntq8.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\v5xmy37558.gz
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\AntiBotIO.Client.sourcelink.json
