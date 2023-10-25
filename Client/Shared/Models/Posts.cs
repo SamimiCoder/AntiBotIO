@@ -7,5 +7,6 @@ namespace AntiBotIO.Client.Shared.Models
       public string Id { get; set; }
       public string ShortCode { get; set; }
       public DateTime Date { get; set; }
+      public string DisplayUrl { get; set; }
     }
 }

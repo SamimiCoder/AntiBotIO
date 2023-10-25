@@ -1,28 +1,33 @@
 ﻿@page "/Instagram"
 @inject AntiBotIO.Client.Shared.Models.PostsDTO posts
 @inject AntiBotIO.Client.Shared.Models.Post MPost
-
+@inject AntiBotIO.Client.Shared.Models.IGComments comments
 @inject HttpClient httpClient
 @inject Shared.Models.JSONModel jsonModel
 
-<h3>Instagram</h3>
+<h3>@DuyuruYazısı</h3>
 <EditForm OnSubmit="@GetPosts" Model="@posts">
     <InputText @bind-Value="posts.UserName" />
     <InputNumber @bind-Value="posts.PostCount" />
     <button type="submit">Get Posts</button>
 </EditForm>
-
+<h3>Get Comments</h3>
+<EditForm OnSubmit="@GetComments" Model="@comments">
+    <InputText @bind-Value="comments.ShortCode" />
+    <button type="submit">Get Comments</button>
+</EditForm>
 
 @if (L_posts.Count > 0)
 {
     @foreach (var item in L_posts)
     {
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+
             <div class="card-body">
                 <h5 class="card-title">@item.Caption</h5>
                 <p class="card-text">Post Id : @item.Id -- Post Short Code : @item.ShortCode </p>
                 <p class="card-text">Coment Count : @item.CommentCount -- Post Date : @item.Date</p>
+                <button type="button" @onclick="@KorumaEkle">Koruma Ekle</button>
             </div>
         </div>
     }
@@ -32,73 +37,133 @@ else if (!string.IsNullOrEmpty(apiResponse))
     <p>No posts found.</p>
 }
 
-/**
- * <summary>
- * This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
- * </summary>
- * <returns>
- * A list of Post objects.
- * </returns>
- */
+@*/**
+* <summary>
+* This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
+* </summary>
+* <returns>
+* A list of Post objects.
+* </returns>
+*/ *@
 @code {
+    private string DisplayUrl;
     private string apiResponse;
+    private string DuyuruYazısı;
     List<Post> L_posts = new List<Post>();
+    List<Comments> L_comments = new List<Comments>();
     public async Task<List<Post>> GetPosts()
-{
-    Console.WriteLine("GetPosts method called"); // Add this line
-
-    // Kullanıcının girdiği verileri alın
-    var userName = posts.UserName;
-    var postCount = posts.PostCount;
-
-    // Web API'ye gönderilecek verileri oluşturun
-    var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
-
-    // Web API'ye istek gönderin
-    if (request.IsSuccessStatusCode)
     {
-        // Web API'den gelen yanıtı alın
-        apiResponse = await request.Content.ReadAsStringAsync();
+        Console.WriteLine("GetPosts method called"); // Add this line
 
-        var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
+        // Kullanıcının girdiği verileri alın
+        var userName = posts.UserName;
+        var postCount = posts.PostCount;
 
-        if (postCount > jsonResponse.data.items.Count)
+        // Web API'ye gönderilecek verileri oluşturun
+        var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
+
+        // Web API'ye istek gönderin
+        if (request.IsSuccessStatusCode)
         {
-            postCount = jsonResponse.data.items.Count;
-        }
+            // Web API'den gelen yanıtı alın
+            apiResponse = await request.Content.ReadAsStringAsync();
 
-        for (int i = 0; i < postCount && i < jsonResponse.data.items.Count; i++)
-        {
-            var item = jsonResponse.data.items[i];
+            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
 
-            // Extract post data
-            string postCaption = string.Empty;
-            if (item.captions.items.Count > 0)
+            if (postCount > jsonResponse.data.items.Count)
             {
-                postCaption = item.captions.items[0].ToString();
+                postCount = jsonResponse.data.items.Count;
             }
-            string commentCount = item.comments.count.ToString();
-            string postId = item.id.ToString();
-            string shortCode = item.code.ToString();
-            DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
 
-            // Create object to hold data
-            Post PostData = new Post();
-            PostData.Caption = postCaption;
-            PostData.CommentCount = commentCount;
-            PostData.Id = postId;
-            PostData.ShortCode = shortCode;
-            PostData.Date = postDate;
+            for (int i = 0; i < postCount && i < jsonResponse.data.items.Count; i++)
+            {
+                var item = jsonResponse.data.items[i];
 
-            // Add to list
-            L_posts.Add(PostData);
+                // Extract post data
+                string postCaption = string.Empty;
+                if (item.captions.items.Count > 0)
+                {
+                    postCaption = item.captions.items[0].ToString();
+                }
+                string commentCount = item.comments.count.ToString();
+                string postId = item.id.ToString();
+                string shortCode = item.code.ToString();
+                DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
+                DisplayUrl = item.display_url.ToString();
+                // Create object to hold data
+                Post PostData = new Post();
+                PostData.Caption = postCaption;
+                PostData.CommentCount = commentCount;
+                PostData.Id = postId;
+                PostData.ShortCode = shortCode;
+                PostData.Date = postDate;
+                PostData.DisplayUrl = DisplayUrl;
+                // Add to list
+                L_posts.Add(PostData);
+            }
+            return L_posts;
         }
-        return L_posts;
+        else
+        {
+            // Handle the case where the request fails
+            return null;
+        }
     }
-    else
+    public async Task<string> KorumaEkle()
     {
-        // Handle the case where the request fails
-        return null;
+        DuyuruYazısı = "Koruma Eklendi";
+        return DuyuruYazısı;
     }
-}
+    public async Task<List<Comments>> GetComments()
+    {
+        Console.WriteLine("GetComments method called"); // Add this line
+
+        // Kullanıcının girdiği verileri alın
+        var shortCode = comments.ShortCode;
+
+        // Web API'ye gönderilecek verileri oluşturun
+        var request = await httpClient.GetAsync($"api/Instagram/GetComments?shortCode={shortCode}");
+
+        // Web API'ye istek gönderin
+        if (request.IsSuccessStatusCode)
+        {
+            // Web API'den gelen yanıtı alın
+            apiResponse = await request.Content.ReadAsStringAsync();
+
+            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
+
+            for (int i = 0; i < jsonResponse.data.items.Count; i++)
+            {
+                var item = jsonResponse.data.items[i];
+
+                // Extract post data
+                string commentText = item.text.ToString();
+                string commentId = item.id.ToString();
+                string commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at).DateTime.ToString();
+                string commentUserId = item.user.id.ToString();
+                string commentUserName = item.user.username.ToString();
+                string commentFullName = item.user.full_name.ToString();
+                string commentProfilePicture = item.user.profile_picture.ToString();
+
+                // Create object to hold data
+                Comments CommentData = new Comments();
+                CommentData.Text = commentText;
+                CommentData.Id = commentId;
+                CommentData.Date = commentDate;
+                CommentData.UserId = commentUserId;
+                CommentData.UserName = commentUserName;
+                CommentData.FullName = commentFullName;
+                CommentData.ProfilePicture = commentProfilePicture;
+
+                // Add to list
+                L_comments.Add(CommentData);
+            }
+            return L_comments;
+        }
+        else
+        {
+            // Handle the case where the request fails
+            return null;
+        }
+    }
 }
