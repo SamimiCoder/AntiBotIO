@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj": {}
+    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj": {}
   },
   "projects": {
     "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Client\\AntiBotIO.Client.csproj": {
@@ -124,14 +124,14 @@
         }
       }
     },
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj": {
+    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj",
+        "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
         "projectName": "AntiBotIO.Server",
-        "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj",
+        "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
         "packagesPath": "C:\\Users\\BERKAY\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\obj\\",
+        "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
