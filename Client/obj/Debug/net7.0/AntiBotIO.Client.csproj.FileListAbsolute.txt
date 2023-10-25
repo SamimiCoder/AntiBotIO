@@ -632,6 +632,7 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\Newtonsoft.Jso
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.11.cxnpfa5j5u.js
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.11.cxnpfa5j5u.js.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\blazor.boot.json.gz
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\AntiBotIO.Client.sourcelink.json
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\blazor.build.boot-extension.json
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\ardrsfo8fk.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\f8gmzabcqr.gz
@@ -837,4 +838,3 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\rss
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\d469d8fcf2.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\gvadmnntq8.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\v5xmy37558.gz
-C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\AntiBotIO.Client.sourcelink.json

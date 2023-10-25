@@ -13,7 +13,7 @@ namespace AntiBotIO.Services
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code={ShortCode}"),
+                RequestUri = new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}"),
                 Headers =
                 {
                     { "X-RapidAPI-Key", $"{ApiKey}" },

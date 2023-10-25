@@ -11,6 +11,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<PostsDTO>();
 builder.Services.AddScoped<Post>();
+builder.Services.AddScoped<IGComments>();
 builder.Services.AddSingleton<JSONModel>();
+builder.Services.AddSingleton<CommentJsonModel>();
 
 await builder.Build().RunAsync();

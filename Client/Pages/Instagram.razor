@@ -16,7 +16,21 @@
     <InputText @bind-Value="comments.ShortCode" />
     <button type="submit">Get Comments</button>
 </EditForm>
+@if (L_comments !=null)
+{
+    @foreach (var item in L_comments)
+    {
+        <div class="card" style="width: 18rem;">
 
+            <div class="card-body">
+                <h5 class="card-title">@item.CommentText</h5>
+                <p class="card-text">Post Id : @item.CommentId </p>
+                <p class="card-text">Coment Count : @item.UserName -- Post Date : @item.Date</p>
+                
+            </div>
+        </div>
+    }
+}
 @if (L_posts.Count > 0)
 {
     @foreach (var item in L_posts)
@@ -38,19 +52,19 @@ else if (!string.IsNullOrEmpty(apiResponse))
 }
 
 @*/**
-* <summary>
-* This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
-* </summary>
-* <returns>
-* A list of Post objects.
-* </returns>
-*/ *@
+    * <summary>
+    * This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
+    * </summary>
+    * <returns>
+    * A list of Post objects.
+    * </returns>
+    */ *@
 @code {
     private string DisplayUrl;
     private string apiResponse;
     private string DuyuruYazısı;
     List<Post> L_posts = new List<Post>();
-    List<Comments> L_comments = new List<Comments>();
+    List<IGComments> L_comments = new List<IGComments>();
     public async Task<List<Post>> GetPosts()
     {
         Console.WriteLine("GetPosts method called"); // Add this line
@@ -114,7 +128,7 @@ else if (!string.IsNullOrEmpty(apiResponse))
         DuyuruYazısı = "Koruma Eklendi";
         return DuyuruYazısı;
     }
-    public async Task<List<Comments>> GetComments()
+    public async Task<List<IGComments>> GetComments()
     {
         Console.WriteLine("GetComments method called"); // Add this line
 
@@ -122,7 +136,7 @@ else if (!string.IsNullOrEmpty(apiResponse))
         var shortCode = comments.ShortCode;
 
         // Web API'ye gönderilecek verileri oluşturun
-        var request = await httpClient.GetAsync($"api/Instagram/GetComments?shortCode={shortCode}");
+        var request = await httpClient.GetAsync($"api/Instagram/GetComments?ShortCode={shortCode}");
 
         // Web API'ye istek gönderin
         if (request.IsSuccessStatusCode)
@@ -130,28 +144,33 @@ else if (!string.IsNullOrEmpty(apiResponse))
             // Web API'den gelen yanıtı alın
             apiResponse = await request.Content.ReadAsStringAsync();
 
-            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.JSONModel>(apiResponse);
+            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<Shared.Models.CommentJsonModel>(apiResponse);
 
-            for (int i = 0; i < jsonResponse.data.items.Count; i++)
+            for (int i = 0; i < jsonResponse.data.count; i++)
             {
                 var item = jsonResponse.data.items[i];
 
                 // Extract post data
                 string commentText = item.text.ToString();
                 string commentId = item.id.ToString();
-                string commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at).DateTime.ToString();
+                DateTime commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at).DateTime;
                 string commentUserId = item.user.id.ToString();
                 string commentUserName = item.user.username.ToString();
                 string commentFullName = item.user.full_name.ToString();
-                string commentProfilePicture = item.user.profile_picture.ToString();
+                string commentProfilePicture = item.user.profile_pic_url.ToString();
 
-                // Create object to hold data
-                Comments CommentData = new Comments();
-                CommentData.Text = commentText;
-                CommentData.Id = commentId;
+                // Create object to hold dataW
+                IGComments CommentData = new IGComments();
+                CommentData.CommentText = commentText;
+                CommentData.CommentId = commentId;
                 CommentData.Date = commentDate;
                 CommentData.UserId = commentUserId;
                 CommentData.UserName = commentUserName;
+                CommentData.FullName = commentFullName;
+                CommentData.ProfilePicture = commentProfilePicture;
+
+                // Add to list
+                L_comments.Add(CommentData);
                 CommentData.FullName = commentFullName;
                 CommentData.ProfilePicture = commentProfilePicture;
 

@@ -2,6 +2,13 @@
 {
     public class IGComments {
         public string ShortCode { get; set; }
+        public string CommentText { get; set; }
+        public string CommentId { get; set; }
+        public string UserId { get; set; }
+        public string FullName { get; set; }
+        public string ProfilePicture { get; set; }
+        public DateTime Date { get; set; }
+        public string UserName { get; set; }
     }
     public class Rootobject
     {
@@ -10,7 +17,7 @@
     }
     public class CommentJsonModel
     {
-        public Data data { get; set; }
+        public DataComment data { get; set; }
         public object Pagination { get; set; }
     }
     public class DataComment

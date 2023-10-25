@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AntiBotIO.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7cf044e47f52e6ba5889b1a0e664e6ed210b2ef8")]
 [assembly: System.Reflection.AssemblyProductAttribute("AntiBotIO.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AntiBotIO.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
