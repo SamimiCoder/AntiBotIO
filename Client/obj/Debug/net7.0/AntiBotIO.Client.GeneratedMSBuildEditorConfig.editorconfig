@@ -50,6 +50,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/CommentForm.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbW1lbnRGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-gc5w1ecsrx
+
 [C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-59f0js58u1
@@ -57,3 +61,7 @@ build_metadata.AdditionalFiles.CssScope = b-59f0js58u1
 [C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-y6hcjicjl0
+
+[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/PostForm.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBvc3RGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-9msy9dw9lr

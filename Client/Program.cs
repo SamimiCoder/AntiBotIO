@@ -1,5 +1,5 @@
 using AntiBotIO.Client;
-using AntiBotIO.Client.Shared.Models;
+using AntiBotIO.Shared.Models;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

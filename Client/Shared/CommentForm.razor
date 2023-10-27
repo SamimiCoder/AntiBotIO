@@ -1,0 +1,86 @@
+﻿@inherits LayoutComponentBase
+@inject AntiBotIO.Shared.Models.IGComments comments
+@inject HttpClient httpClient
+@using AntiBotIO.Shared.Models
+<h3>Get Comments</h3>
+<EditForm OnSubmit="@GetComments" Model="@comments">
+    <InputText @bind-Value="comments.ShortCode" />
+    <button type="submit">Get Comments</button>
+</EditForm>
+@if (L_comments !=null)
+{
+    @foreach (var item in L_comments)
+    {
+        <div class="card" style="width: 18rem;">
+
+            <div class="card-body">
+                <img  src="@item.ProfilePicture"/>
+                <h5 class="card-title">@item.CommentText</h5>
+                <p class="card-text">Post Id : @item.CommentId </p>
+                <p class="card-text">Coment Count : @item.UserName - Full Name : @item.FullName- Post Date : @item.Date</p>
+                
+            </div>
+        </div>
+    }
+}
+@code {
+private string apiResponse;
+List<IGComments> L_comments = new List<IGComments>();
+public async Task<List<IGComments>> GetComments()
+    {
+        Console.WriteLine("GetComments method called"); // Add this line
+
+        // Kullanıcının girdiği verileri alın
+        var shortCode = comments.ShortCode;
+
+        // Web API'ye gönderilecek verileri oluşturun
+        var request = await httpClient.GetAsync($"api/Instagram/GetComments?ShortCode={shortCode}");
+
+        // Web API'ye istek gönderin
+        if (request.IsSuccessStatusCode)
+        {
+            // Web API'den gelen yanıtı alın
+            apiResponse = await request.Content.ReadAsStringAsync();
+
+            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<AntiBotIO.Shared.Models.CommentJsonModel>(apiResponse);
+
+            for (int i = 0; i < jsonResponse.data.count; i++)
+            {
+                var item = jsonResponse.data.items[i];
+
+                // Extract post data
+                string commentText = item.text.ToString();
+                string commentId = item.id.ToString();
+                DateTime commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at).DateTime;
+                string commentUserId = item.user.id.ToString();
+                string commentUserName = item.user.username.ToString();
+                string commentFullName = item.user.full_name.ToString();
+                string commentProfilePicture = item.user.profile_pic_url.ToString();
+
+                // Create object to hold data
+                IGComments CommentData = new IGComments();
+                CommentData.CommentText = commentText;
+                CommentData.CommentId = commentId;
+                CommentData.Date = commentDate;
+                CommentData.UserId = commentUserId;
+                CommentData.UserName = commentUserName;
+                CommentData.FullName = commentFullName;
+                CommentData.ProfilePicture = commentProfilePicture;
+
+                // Add to list
+               
+                CommentData.FullName = commentFullName;
+                CommentData.ProfilePicture = commentProfilePicture;
+
+                // Add to list
+                L_comments.Add(CommentData);
+            }
+            return L_comments;
+        }
+        else
+        {
+            // Handle the case where the request fails
+            return null;
+        }
+    }
+    }

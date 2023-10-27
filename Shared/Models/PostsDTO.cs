@@ -1,4 +1,4 @@
-namespace AntiBotIO.Client.Shared.Models
+namespace AntiBotIO.Shared.Models
 {
     public class PostsDTO
     {

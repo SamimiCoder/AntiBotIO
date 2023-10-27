@@ -629,6 +629,8 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\ref\AntiBotIO.
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\Newtonsoft.Json.dll
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\Newtonsoft.Json.dll.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\scopedcss\Shared\CommentForm.razor.rz.scp.css
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\scopedcss\Shared\PostForm.razor.rz.scp.css
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.11.cxnpfa5j5u.js
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.11.cxnpfa5j5u.js.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\blazor.boot.json.gz
