@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
       "projectName": "AntiBotIO.Shared",
-      "projectPath": "c:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+      "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
       "packagesPath": "C:\\Users\\BERKAY\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\obj\\",
+      "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -62,26 +62,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.11, 7.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.11, 7.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[7.0.11, 7.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23463.5\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

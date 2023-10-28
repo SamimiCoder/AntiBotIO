@@ -50,6 +50,27 @@ namespace AntiBotIO.Services
             }
         }
 
+        public async Task<string> GetPostDetails(string ApiKey, string ShortCode)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/post_info?code_or_id_or_url={ShortCode}"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", $"{ApiKey}" },
+        { "X-RapidAPI-Host", "instagram-scraper-api2.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return body;
+            }
+        }
+
         public async Task<string> GetPosts(string ApiKey, string ShortCode)
         {
             var client = new HttpClient();
@@ -73,7 +94,7 @@ namespace AntiBotIO.Services
 
         public async Task<string> GetReels(string ApiKey, string ShortCode)
         {
-            
+
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
