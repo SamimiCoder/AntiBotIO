@@ -1,5 +1,6 @@
-using AntiBotIO.Services;
+using AntiBotIO.Shared.Services;
 using Microsoft.AspNetCore.ResponseCompression;
+using AntiBotIO.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,18 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IInstagramService, InstagramService>();
-
+builder.Services.AddScoped<OperationService>();
 // CORS politikalarını ayarla
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
+
 
 var app = builder.Build();
 
@@ -43,10 +35,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // CORS politikasını etkinleştir
-app.UseCors(x => x
-          .AllowAnyOrigin()
-          .AllowAnyMethod()
-          .AllowAnyHeader());
+
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");

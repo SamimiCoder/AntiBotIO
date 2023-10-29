@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Client\AntiBotIO.Client.csproj" />
     <ProjectReference Include="..\Shared\AntiBotIO.Shared.csproj" />
+
   </ItemGroup>
 
 

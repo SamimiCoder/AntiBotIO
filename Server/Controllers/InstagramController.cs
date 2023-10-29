@@ -1,4 +1,4 @@
-﻿using AntiBotIO.Services;
+﻿using AntiBotIO.Shared.Services;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

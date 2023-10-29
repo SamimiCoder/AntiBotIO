@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "N+HrhpUid4bqj8ax99HImRhgoNRWkvoHIAKUX3DifjxwueE0kRskNMN7MARJMfMObdP73wor+mv8I3J6HSmY4w==",
+  "dgSpecHash": "+iUz2MIoYiCh8J7zk9+nbKMmk5ng9DlSHRFq805v9zQv0oUnVJxnX1pkgTcvSptaBlhJqqbRFTSeZfS3R8Pt2g==",
   "success": true,
   "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,11 @@
     "C:\\Users\\BERKAY\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
+    "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.11\\microsoft.netcore.app.ref.7.0.11.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.11\\microsoft.windowsdesktop.app.ref.7.0.11.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.11\\microsoft.aspnetcore.app.ref.7.0.11.nupkg.sha512",
+    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.11\\microsoft.netcore.app.host.win-x64.7.0.11.nupkg.sha512"
   ],
   "logs": []
 }
