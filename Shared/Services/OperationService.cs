@@ -55,12 +55,12 @@ namespace AntiBotIO.Shared.Services
             }
             return ProfileInfos;
         }
-        public async Task<List<string>> DetectBots(string apiKey, string shortCode,string UserName)
+        public async Task<List<Bots>> DetectBots(string apiKey, string shortCode,string UserName)
         {
             var commentTexts = await ReadComments(apiKey, shortCode);
             var postDetails = await ReadPostDetails(apiKey, shortCode);
             var profileInfos = await ReadProfileDetails(apiKey, UserName);
-
+            List<Bots> Bots = new List<Bots>();
             var possibilities = new DetectionPossibilities();
 
             // İhtimalleri işle
@@ -100,7 +100,10 @@ namespace AntiBotIO.Shared.Services
                 // ...
             }
 
-            return commentTexts;
+            // Bots listesine Bots nesnelerini ekle
+            Bots.Add(new Bots {BotId=(int)Math.Floor(Math.Round(1.0, 99999)), BotBio = possibilities.IsProfileBioHasLink.ToString(), BotComment = possibilities.IsTextSuspicious.ToString(),BotName="BOT", SuspectRate = percentage });
+
+            return Bots;
         }
 //"Dm", "+18", "link", "hikayemde","telegram","kızlı erkekli","sütyen","erkekler","sitorim","yalnızım","pompa","gece","benden güzeli","sizce ben","18","25","20","yaş",
         private bool IsSuspicious(string text)

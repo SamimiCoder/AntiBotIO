@@ -1,14 +1,16 @@
 using AntiBotIO.Shared.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 using AntiBotIO.Shared.Services;
+using AntiBotIO.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IInstagramService, InstagramService>();
-builder.Services.AddScoped<OperationService>();
+builder.Services.AddSingleton<IInstagramService, InstagramService>();
+builder.Services.AddSingleton<IGComments>();
+builder.Services.AddSingleton<OperationService>();
 // CORS politikalarını ayarla
 
 
