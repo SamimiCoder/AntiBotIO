@@ -16,26 +16,26 @@ namespace AntiBotIO.Shared.Services
         {
             var result = _ınstagramService.GetComments(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result.Result);
-            var comments = jsonResponse.data.items;
-
+            var comments = jsonResponse.data;
             List<string> commentTexts = new List<string>();
-            foreach (var comment in comments)
+            foreach (var comment in comments.items)
             {
                 commentTexts.Add(comment.text);
                 commentTexts.Add(comment.created_at.ToString());
             }
             return commentTexts;
         }
-        public async Task<List<string>> ReadPostDetails(string ApiKey, string ShortCode)
+        public async Task<List<DateTime>> ReadPostDetails(string ApiKey, string ShortCode)
         {
             var result = _ınstagramService.GetPostDetails(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<PostJsonModel>(result.Result);
             var postDetails = jsonResponse.data;
 
-            List<string> PostDetailList = new List<string>();
+            List<DateTime> PostDetailList = new List<DateTime>();
             foreach (var postDetail in postDetails)
             {
-                PostDetailList.Add(postDetail.taken_at.ToString());
+                var takenAt = DateTimeOffset.FromUnixTimeSeconds(postDetail.taken_at).UtcDateTime;
+                PostDetailList.Add(takenAt);
             }
             return PostDetailList;
         }
@@ -55,55 +55,38 @@ namespace AntiBotIO.Shared.Services
             }
             return ProfileInfos;
         }
-        public async Task<List<Bots>> DetectBots(string apiKey, string shortCode,string UserName)
+        public async Task<List<Bots>> DetectBots(string apiKey, string shortCode, string userName)
         {
             var commentTexts = await ReadComments(apiKey, shortCode);
             var postDetails = await ReadPostDetails(apiKey, shortCode);
-            var profileInfos = await ReadProfileDetails(apiKey, UserName);
-            List<Bots> Bots = new List<Bots>();
+            var profileInfos = await ReadProfileDetails(apiKey, userName);
+            List<Bots> bots = new List<Bots>();
             var possibilities = new DetectionPossibilities();
-
-            // İhtimalleri işle
-            if (DateTime.TryParse(postDetails.FirstOrDefault(), out var postDate))
+            int suspiciousRate = 0;
+            for (int i = 0; i < commentTexts.Count; i++)
             {
-                if (DateTime.TryParse(commentTexts.FirstOrDefault(x => !string.IsNullOrEmpty(x)), out var commentDate))
+                var commentText = commentTexts[i];
+                if (IsSuspicious(commentText))
                 {
-                    possibilities.IsDateEqualsPost = postDate == commentDate;
+                    suspiciousRate += 5;
                 }
+                var commentDate = DateTime.Parse(commentTexts[i + 1]);
+                for (int j = 0; j < postDetails.Count; j++)
+                {
+                    var postDate = postDetails[j];
+                    if (Math.Abs((postDate - commentDate).TotalSeconds) <= 10)
+                    {
+                        suspiciousRate += 5;
+                    }
+                }
+                i++;
             }
-
-            possibilities.IsTextSuspicious = commentTexts.Any(x => IsSuspicious(x));
-
-            possibilities.IsTextContainsSpecialCaracters = commentTexts.Any(x => ContainsSpecialCharacters(x));
-
-            possibilities.IsCommentLikesZero = commentTexts.Count == 0;
-
-            possibilities.IsProfileBioHasLink = profileInfos.Any(x => !string.IsNullOrEmpty(x) && x.Contains("http"));
-
-            possibilities.IsProfileBioLinkIsTelegram = profileInfos.Any(x => !string.IsNullOrEmpty(x) && x.Contains("t.me"));
-
-            if (int.TryParse(profileInfos.FirstOrDefault(x => x.Contains("follower_count")), out var followerCount) &&
-                int.TryParse(profileInfos.FirstOrDefault(x => x.Contains("following_count")), out var followingCount))
+            
+            if (suspiciousRate >= 55)
             {
-                possibilities.IsProfileFollowersLessThanFollowings = followerCount < followingCount;
+                bots.Add(new Bots());
             }
-
-            // İhtimallerin yüzdeliğini hesapla
-            var totalPossibilities = 7;
-            var truePossibilities = possibilities.GetType().GetProperties().Count(x => (bool)x.GetValue(possibilities));
-            var percentage = (double)truePossibilities / totalPossibilities;
-
-            // Eşik değerini kontrol et
-            if (percentage >= 0.5)
-            {
-                // Engelleme işlemini yap
-                // ...
-            }
-
-            // Bots listesine Bots nesnelerini ekle
-            Bots.Add(new Bots {BotId=(int)Math.Floor(Math.Round(1.0, 99999)), BotBio = possibilities.IsProfileBioHasLink.ToString(), BotComment = possibilities.IsTextSuspicious.ToString(),BotName="BOT", SuspectRate = percentage });
-
-            return Bots;
+            return bots;
         }
 //"Dm", "+18", "link", "hikayemde","telegram","kızlı erkekli","sütyen","erkekler","sitorim","yalnızım","pompa","gece","benden güzeli","sizce ben","18","25","20","yaş",
         private bool IsSuspicious(string text)
