@@ -9,7 +9,7 @@ namespace AntiBotIO.Shared.Models
     
     public class PostRootobject
     {
-        public Data data { get; set; }
+        public PostDetailData data { get; set; }
     }
 public class PostJsonModel
     {

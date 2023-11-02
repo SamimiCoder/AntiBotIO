@@ -12,30 +12,29 @@ namespace AntiBotIO.Shared.Services
             _ınstagramService = ınstagramService;
             _comments = comments;
         }
-        public async Task<List<string>> ReadComments(string ApiKey, string ShortCode)
+        public async Task<List<CommentItems>> ReadComments(string ApiKey, string ShortCode)
         {
             var result = _ınstagramService.GetComments(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result.Result);
             var comments = jsonResponse.data;
-            List<string> commentTexts = new List<string>();
+            List<CommentItems> commentTexts = new List<CommentItems>();
             foreach (var comment in comments.items)
             {
-                commentTexts.Add(comment.text);
-                commentTexts.Add(comment.created_at.ToString());
+                commentTexts.Add(new CommentItems { text = comment.text, created_at = comment.created_at , comment_like_count = comment.comment_like_count , user = comment.user , did_report_as_spam = comment.did_report_as_spam , id = comment.id , user_id = comment.user_id});
+
             }
             return commentTexts;
         }
-        public async Task<List<DateTime>> ReadPostDetails(string ApiKey, string ShortCode)
+        public async Task<List<PostDetailData>> ReadPostDetails(string ApiKey, string ShortCode)
         {
             var result = _ınstagramService.GetPostDetails(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<PostJsonModel>(result.Result);
             var postDetails = jsonResponse.data;
 
-            List<DateTime> PostDetailList = new List<DateTime>();
+            List<PostDetailData> PostDetailList = new List<PostDetailData>();
             foreach (var postDetail in postDetails)
             {
-                var takenAt = DateTimeOffset.FromUnixTimeSeconds(postDetail.taken_at).UtcDateTime;
-                PostDetailList.Add(takenAt);
+                PostDetailList.Add(new PostDetailData {caption = postDetail.caption , });
             }
             return PostDetailList;
         }
@@ -57,42 +56,13 @@ namespace AntiBotIO.Shared.Services
         }
         public async Task<List<Bots>> DetectBots(string apiKey, string shortCode, string userName)
         {
-            var commentTexts = await ReadComments(apiKey, shortCode);
-            var postDetails = await ReadPostDetails(apiKey, shortCode);
-            var profileInfos = await ReadProfileDetails(apiKey, userName);
-            List<Bots> bots = new List<Bots>();
-            var possibilities = new DetectionPossibilities();
-            int suspiciousRate = 0;
-            for (int i = 0; i < commentTexts.Count; i++)
-            {
-                var commentText = commentTexts[i];
-                if (IsSuspicious(commentText))
-                {
-                    suspiciousRate += 5;
-                }
-                var commentDate = DateTime.Parse(commentTexts[i + 1]);
-                for (int j = 0; j < postDetails.Count; j++)
-                {
-                    var postDate = postDetails[j];
-                    if (Math.Abs((postDate - commentDate).TotalSeconds) <= 10)
-                    {
-                        suspiciousRate += 5;
-                    }
-                }
-                i++;
-            }
             
-            if (suspiciousRate >= 55)
-            {
-                bots.Add(new Bots());
-            }
-            return bots;
         }
 //"Dm", "+18", "link", "hikayemde","telegram","kızlı erkekli","sütyen","erkekler","sitorim","yalnızım","pompa","gece","benden güzeli","sizce ben","18","25","20","yaş",
         private bool IsSuspicious(string text)
 {
     // Şüpheli kelime listesi
-    var suspiciousWords = new List<string> { "Dm", "+18", "link", "hikayemde", "telegram", "kızlı erkekli", "sütyen", "erkekler", "sitorim", "yalnızım", "pompa", "gece", "benden güzeli", "sizce ben", "18", "25", "20", "yaş","ayrıldım","konuşçak yokmu","konuşacak" };
+    var suspiciousWords = new List<string> {  };
 
     // Her şüpheli kelime için kontrol et
     foreach (var word in suspiciousWords)
