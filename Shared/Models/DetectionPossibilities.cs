@@ -15,5 +15,6 @@ namespace AntiBotIO.Shared.Models
         public bool IsProfileBioHasLink { get; set; }
         public bool IsProfileBioLinkIsTelegram { get; set; }
         public bool IsProfileFollowersLessThanFollowings { get; set; }
+        public bool IsProfileBioHasSuspiciousWords { get; set; }
     }
 }

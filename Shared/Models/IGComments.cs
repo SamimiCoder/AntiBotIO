@@ -23,9 +23,9 @@
     public class DataComment
     {
         public Additional_Data additional_data { get; set; }
-        public int count { get; set; }
+        public long count { get; set; }
         public CommentItems[] items { get; set; }
-        public int total { get; set; }
+        public long total { get; set; }
     }
 
     public class Additional_Data
@@ -55,7 +55,7 @@
         public string text { get; set; }
         public int type { get; set; }
         public User user { get; set; }
-        public int user_id { get; set; }
+        public long user_id { get; set; }
     }
 
     public class User

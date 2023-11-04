@@ -12,10 +12,13 @@ namespace AntiBotIO.Shared.Models
         public PostDetailData data { get; set; }
     }
 public class PostJsonModel
-    {
-        public PostDetailData[] data { get; set; }
-        public PostDetailItem[] items { get; set; }
-    }
+{
+    public PostDetailData data { get; set; }
+    public PostDetailItem items { get; set; }
+    public PostDetailCaption Captions { get; set; }
+    public PostDetail_User1 user1 { get; set; }
+    public Object Pagination { get; set; }
+}
     public class PostDetailData
     {
         public object accessibility_caption { get; set; }
