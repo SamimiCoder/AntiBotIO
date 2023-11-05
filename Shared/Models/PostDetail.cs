@@ -19,6 +19,7 @@ public class PostJsonModel
     public PostDetail_User1 user1 { get; set; }
     public Object Pagination { get; set; }
 }
+
     public class PostDetailData
     {
         public object accessibility_caption { get; set; }
@@ -371,16 +372,16 @@ public class PostJsonModel
 
     public class Metrics
     {
-        public int comment_count { get; set; }
-        public int fb_like_count { get; set; }
-        public int fb_play_count { get; set; }
-        public int like_count { get; set; }
-        public int play_count { get; set; }
-        public int save_count { get; set; }
-        public int share_count { get; set; }
-        public int user_follower_count { get; set; }
-        public int user_media_count { get; set; }
-        public int view_count { get; set; }
+        public int? comment_count { get; set; }
+        public int? fb_like_count { get; set; }
+        public int? fb_play_count { get; set; }
+        public int? like_count { get; set; }
+        public int? play_count { get; set; }
+        public int? save_count { get; set; }
+        public int? share_count { get; set; }
+        public int? user_follower_count { get; set; }
+        public int? user_media_count { get; set; }
+        public int? view_count { get; set; }
     }
 
     public class Sharing_Friction_Info

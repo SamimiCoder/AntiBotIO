@@ -32,7 +32,12 @@
     <div>
     @foreach (var item in Botresult)
     {
-        
+        <div>
+            <p>@item.SuspectRate</p>
+            <p>@item.BotComment</p>
+            <p>@item.BotName</p>
+            <p>@item.BotId</p>
+        </div>
     }
     </div>
 }
@@ -123,12 +128,15 @@ else if (!string.IsNullOrEmpty(apiResponse))
     
     public async Task<List<Bots>> KorumaEkle()
     {
+        Console.WriteLine("KorumaEkle method called"); // Add this line
         // Tıklanan butona karşılık gelen Post nesnesini bulun
         Post selectedPost = null;
         foreach (var post in L_posts)
         {
+            Console.WriteLine("foreach statement reached");
             if (post.ShortCode == ShortCode)
             {
+                Console.WriteLine("if statement reached");
                 selectedPost = post;
                 break;
             }
@@ -136,12 +144,18 @@ else if (!string.IsNullOrEmpty(apiResponse))
 
         if (selectedPost != null)
         {
+            Console.WriteLine("selectedPost is not null");
             // Seçilen Post nesnesinin ShortCode özelliğini kullanarak koruma ekleme işlemini gerçekleştirin
-            Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode,posts.UserName);
+            foreach(var comment in L_comments){
+                Console.WriteLine(" second foreach statement reached");
+                Botresult = await operationService.DetectBots("6c202f6909msh5e75652d5bd0a45p1492bejsna4d4d201dc46", selectedPost.ShortCode,comment.UserName);
+            }
+            
             return Botresult;
         }
         else
         {
+            Console.WriteLine("selectedPost is null");
             return null;
         }
     }
