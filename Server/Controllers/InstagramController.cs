@@ -10,23 +10,28 @@ namespace AntiBotIO.Controllers
     [ApiController]
     public class InstagramController : ControllerBase
     {
+         ConfigurationManager Configuration;
         private readonly IInstagramService _instaService;
+        private readonly string _apiKeyInstagram2;
 
-        public InstagramController(IInstagramService instaService)
+        public InstagramController(IConfiguration configuration, IInstagramService instaService)
         {
             _instaService = instaService;
+            _apiKeyInstagram2 = configuration.GetSection("ApiSettings")["ApiKeyInstagram2"];
         }
+
         [HttpGet("GetComments")]
         public async Task<string> GetComments(string ShortCode)
         {
-           var result = await _instaService.GetComments("6c202f6909msh5e75652d5bd0a45p1492bejsna4d4d201dc46", ShortCode);
-           return result;
+            var result = await _instaService.GetComments(_apiKeyInstagram2, ShortCode);
+            return result;
         }
+        
 
         [HttpGet("GetPosts")]
         public async Task<string> GetPosts( string userId)
         {
-            var result = await _instaService.GetPosts("6c202f6909msh5e75652d5bd0a45p1492bejsna4d4d201dc46", userId);
+            var result = await _instaService.GetPosts(_apiKeyInstagram2, userId);
             return result;
         }
     }

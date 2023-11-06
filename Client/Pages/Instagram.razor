@@ -59,6 +59,16 @@ else if (!string.IsNullOrEmpty(apiResponse))
     * </returns>
     */ *@
 @code {
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+@code {
+    private string apiKeyInstagram2;
+
+    protected override void OnInitialized()
+    {
+        apiKeyInstagram2 = Configuration.GetSection("ApiSettings")["ApiKeyInstagram2"];
+    }
+}
     private string DisplayUrl;
     private string apiResponse;
     private string DuyuruYazısı;
@@ -148,7 +158,7 @@ else if (!string.IsNullOrEmpty(apiResponse))
             // Seçilen Post nesnesinin ShortCode özelliğini kullanarak koruma ekleme işlemini gerçekleştirin
             foreach(var comment in L_comments){
                 Console.WriteLine(" second foreach statement reached");
-                Botresult = await operationService.DetectBots("6c202f6909msh5e75652d5bd0a45p1492bejsna4d4d201dc46", selectedPost.ShortCode,comment.UserName);
+                Botresult = await operationService.DetectBots(apiKeyInstagram2, selectedPost.ShortCode,comment.UserName);
             }
             
             return Botresult;
