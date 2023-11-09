@@ -1,6 +1,7 @@
 using AntiBotIO.Shared.Services;
 using AntiBotIO.Shared.Models;
 using System.Linq;
+using Shared.Models;
 
 namespace AntiBotIO.Shared.Services
 {
@@ -13,40 +14,54 @@ namespace AntiBotIO.Shared.Services
             _ınstagramService = ınstagramService;
             _comments = comments;
         }
-        public async Task<List<CommentItems>> ReadComments(string ApiKey, string ShortCode)
+        public async Task<List<CommentDTO>> ReadComments(string ApiKey, string ShortCode)
         {
             var result = await _ınstagramService.GetComments(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result);
             var comments = jsonResponse.data;
-            List<CommentItems> commentTexts = new List<CommentItems>();
+            List<CommentDTO> commentTexts = new List<CommentDTO>();
             foreach (var comment in comments.items)
             {
-                commentTexts.Add(new CommentItems { text = comment.text, created_at = comment.created_at, comment_like_count = comment.comment_like_count, user = comment.user, did_report_as_spam = comment.did_report_as_spam, id = comment.id, user_id = comment.user_id });
-
+                commentTexts.Add(new CommentDTO { 
+                    comment_text = comment.text, 
+                    created_at = DateTimeOffset.FromUnixTimeSeconds(comment.created_at).DateTime, 
+                    comment_like_count = comment.comment_like_count, 
+                    did_report_as_spam = comment.did_report_as_spam, 
+                    id = comment.id, 
+                    user_id = comment.user_id 
+                });
             }
             return commentTexts;
         }
-        public async Task<List<PostDetailData>> ReadPostDetails(string ApiKey, string ShortCode)
+        public async Task<List<PostDetailDTO>> ReadPostDetails(string ApiKey, string ShortCode)
         {
             var result = await _ınstagramService.GetPostDetails(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<PostJsonModel>(result);
             var postDetail = jsonResponse.data;
 
-            List<PostDetailData> PostDetailList = new List<PostDetailData>();
-            PostDetailList.Add(new PostDetailData { caption = postDetail.caption, taken_at = postDetail.taken_at });
+            List<PostDetailDTO> PostDetailList = new List<PostDetailDTO>
+            {
+                new PostDetailDTO { Caption = postDetail.caption.ToString(), taken_at = DateTimeOffset.FromUnixTimeSeconds(postDetail.taken_at).DateTime }
+            };
             return PostDetailList;
         }
 
-        public async Task<List<ProfileData>> ReadProfileDetails(string ApiKey, string ShortCode)
+        public async Task<List<ProfileDetailDTO>> ReadProfileDetails(string ApiKey, string ShortCode)
         {
             var result = await _ınstagramService.GetProfileDetails(ApiKey, ShortCode);
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<ProfileJsonModel>(result);
             var profileDetails = jsonResponse.data;
 
-            List<ProfileData> ProfileInfos = new List<ProfileData>();
+            List<ProfileDetailDTO> ProfileInfos = new List<ProfileDetailDTO>();
             foreach (var profileDetail in profileDetails)
             {
-                ProfileInfos.Add(new ProfileData { bio_links = profileDetail.bio_links, biography = profileDetail.biography, follower_count = profileDetail.follower_count, following_count = profileDetail.following_count });
+                ProfileInfos.Add(new ProfileDetailDTO { 
+                    bio_links = profileDetail.bio_links.Select(x => x.url).ToArray(), 
+                    biography = profileDetail.biography, 
+                    follower_count = profileDetail.follower_count, 
+                    following_count = profileDetail.following_count,
+                    username = profileDetail.username
+                });
             }
             return ProfileInfos;
         }
@@ -60,12 +75,12 @@ namespace AntiBotIO.Shared.Services
             int SuspiciousRate = 0;
             foreach (var comment in commentList)
             {
-                if (IsSuspicious(comment.text))
+                if (IsSuspicious(comment.comment_text))
                 {
                     SuspiciousRate += 5;
                     possibilities.IsTextSuspicious = true;
                 }
-                if (ContainsSpecialCharacters(comment.text))
+                if (ContainsSpecialCharacters(comment.comment_text))
                 {
                     SuspiciousRate += 20;
                     possibilities.IsTextContainsSpecialCaracters = true;
@@ -78,7 +93,7 @@ namespace AntiBotIO.Shared.Services
                 {
                     SuspiciousRate += 20;
                     possibilities.IsDateEqualsPost = true;
-                    break;
+                    
                 }
             }
             foreach (var profile in profileDetailList)
@@ -88,19 +103,26 @@ namespace AntiBotIO.Shared.Services
                     SuspiciousRate += 15;
                     possibilities.IsProfileBioHasSuspiciousWords = true;
                 }
-                else if (profile.bio_links[0].url.Contains("t.me"))
+                else if (profile.bio_links[0].Contains("t.me"))
                 {
                     SuspiciousRate += 20;
                     possibilities.IsProfileBioLinkIsTelegram = true;
                 }
             }
-            if (SuspiciousRate >= 50)
+            Console.WriteLine(SuspiciousRate);
+            if (SuspiciousRate >= 5)
             {
+                Console.WriteLine("Bir bot tespit edildi");
+                Console.WriteLine(SuspiciousRate);
                 foreach (var BotProp in profileDetailList)
                 {
-                    Bots.Add(new Bots { BotName = BotProp.username, BotBio = BotProp.biography, BotId = Int32.Parse(BotProp.id), SuspectRate = SuspiciousRate, BotComment = "" });
+                    Console.WriteLine("Botun adı: " + BotProp.username);
+                    Bots.Add(new Bots { BotName = BotProp.username, BotBio = BotProp.biography, SuspectRate = SuspiciousRate, BotComment = "" });
                 }
                 //engelleme işlemi
+            }
+            else {
+                Bots.Add(new Bots { BotName = "NONE", BotBio = "NONE", BotId = 0, SuspectRate = 0, BotComment = "NONE" });
             }
             return Bots;
         }

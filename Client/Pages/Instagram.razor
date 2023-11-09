@@ -146,25 +146,20 @@ else if (!string.IsNullOrEmpty(apiResponse))
             {
                 Console.WriteLine("if statement reached");
                 selectedPost = post;
-                break;
             }
         }
 
-        if (selectedPost != null)
-        {
+        
             Console.WriteLine("selectedPost is not null");
             // Seçilen Post nesnesinin ShortCode özelliğini kullanarak koruma ekleme işlemini gerçekleştirin
-            foreach(var comment in L_comments){
-                Console.WriteLine(" second foreach statement reached");
-                Botresult = await operationService.DetectBots(apiKeyInstagram2, selectedPost.ShortCode,comment.UserName);
-            }
             
+                Console.WriteLine(" second foreach statement reached");
+                Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode, "melekadmin5");
+                Console.WriteLine($"Bot detection result count: {Botresult.Count}");
+          
             return Botresult;
-        }
-        else
-        {
-            Console.WriteLine("selectedPost is null");
-            return null;
-        }
+        
+        
+    }
     }
 }

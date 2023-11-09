@@ -1,7 +1,7 @@
 {
   "entryAssembly": "AntiBotIO.Client",
   "resources": {
-    "hash": "sha256-ipYOsZv/CUVlTlWEDkgThtxJAoh3EZsvxPVRqYz9GJk=",
+    "hash": "sha256-hQDIscKwlzflxPAuyDJdwyRYqv6nWpQ+nwZHGaYbW84=",
     "runtime": {
       "dotnet.7.0.12.cd75lmyo37.js": "sha256-cPJgWy8SjMaYFeimGkYy23ls+rDZVmoC/eMoHpqRc+4=",
       "dotnet.timezones.blat": "sha256-O421u5MzVtmNN7GY9RXR9Ib1uPK4hQfPpzOVofr7iNU=",
@@ -203,12 +203,12 @@
       "mscorlib.dll": "sha256-8OmdVHzoN7xteY5ehp0L8R17I9QxFkH2lUVHFuslE0s=",
       "netstandard.dll": "sha256-urq+e2ZQXxmOWMRxTR92529HnUVu6+kyVnfF6SoLad8=",
       "System.Private.CoreLib.dll": "sha256-ixnF/wVKLHZM1N0lfJufpZ41EC2LvvyiSqdW43h3Xew=",
-      "AntiBotIO.Shared.dll": "sha256-7FJJ88O90uWg0QySs9n9O7LaFAw79KRxW72WU7nDUt4=",
-      "AntiBotIO.Client.dll": "sha256-tXqDg/r6fuPD+ZwOM7XFiBndd99sFNfXZt1C22wbOSw="
+      "AntiBotIO.Shared.dll": "sha256-UuOqBMEEP1L/guPOhQVBoheNfHGK2kBtX1zn1iDGqBs=",
+      "AntiBotIO.Client.dll": "sha256-Ep3VfO/ROydR/XWegjh9/npLvJpTdwbE+w22+kNFFE8="
     },
     "pdb": {
-      "AntiBotIO.Shared.pdb": "sha256-RDG/lRK3ELqyZDd3qyXCYPqcvhu3Zns7phGDrnzsOlU=",
-      "AntiBotIO.Client.pdb": "sha256-fLJNt34DqfLkxk1P7PaeByJwUvyXFElGJElhIaqjCQ4="
+      "AntiBotIO.Shared.pdb": "sha256-rNBelWxFNGXMjNZk1EC0tvmr52qHIgNVxGVLWAbOAAw=",
+      "AntiBotIO.Client.pdb": "sha256-1wYuBxggjdR5VdffTwgpPKTjlWEqr6sk6g4Agwb0PsI="
     },
     "runtimeAssets": {
       "dotnet.wasm": {

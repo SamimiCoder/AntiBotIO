@@ -633,8 +633,8 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\scopedcss\Shar
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\scopedcss\Shared\PostForm.razor.rz.scp.css
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.12.cd75lmyo37.js
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\dotnet.7.0.12.cd75lmyo37.js.gz
-C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\AntiBotIO.Client.sourcelink.json
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\bin\Debug\net7.0\wwwroot\_framework\blazor.boot.json.gz
+C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\AntiBotIO.Client.sourcelink.json
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\blazor.build.boot-extension.json
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\ardrsfo8fk.gz
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\obj\Debug\net7.0\compressed\f8gmzabcqr.gz
