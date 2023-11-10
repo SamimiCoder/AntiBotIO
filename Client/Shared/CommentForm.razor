@@ -51,7 +51,7 @@ public async Task<List<IGComments>> GetComments()
                 // Extract post data
                 string commentText = item.text.ToString();
                 string commentId = item.id.ToString();
-                DateTime commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at).DateTime;
+                DateTime commentDate = DateTimeOffset.FromUnixTimeSeconds(item.created_at ?? 0).DateTime;
                 string commentUserId = item.user.id.ToString();
                 string commentUserName = item.user.username.ToString();
                 string commentFullName = item.user.full_name.ToString();

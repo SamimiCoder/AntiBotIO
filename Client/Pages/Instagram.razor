@@ -133,33 +133,46 @@ else if (!string.IsNullOrEmpty(apiResponse))
             return null;
         }
     }
-    
-    public async Task<List<Bots>> KorumaEkle()
-    {
-        Console.WriteLine("KorumaEkle method called"); // Add this line
-        // Tıklanan butona karşılık gelen Post nesnesini bulun
-        Post selectedPost = null;
-        foreach (var post in L_posts)
-        {
-            Console.WriteLine("foreach statement reached");
-            if (post.ShortCode == ShortCode)
-            {
-                Console.WriteLine("if statement reached");
-                selectedPost = post;
-            }
-        }
 
         
-            Console.WriteLine("selectedPost is not null");
-            // Seçilen Post nesnesinin ShortCode özelliğini kullanarak koruma ekleme işlemini gerçekleştirin
-            
-                Console.WriteLine(" second foreach statement reached");
-                Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode, "pinar_surmeliii");
-                Console.WriteLine($"Bot detection result count: {Botresult.Count}");
-          
-            return Botresult;
         
-        
+ async Task<List<Bots>> KorumaEkle()
+{
+    Console.WriteLine("KorumaEkle method called"); // Add this line
+    // Tıklanan butona karşılık gelen Post nesnesini bulun
+    Post selectedPost = null;
+    foreach (var post in L_posts)
+    {
+        Console.WriteLine("foreach statement reached");
+        if (post.ShortCode == ShortCode)
+        {
+            Console.WriteLine("if statement reached");
+            selectedPost = post;
+        }
+    }
+    List<string> userNames = new List<string>();
+    foreach (var comment in L_comments)
+    {
+        userNames.Add(comment.UserName);
+    }
+
+    List<string> selectedUserNames = new List<string>();
+    foreach (var comment in L_comments)
+    {
+        if (comment.ShortCode == selectedPost.Id)
+        {
+            selectedUserNames.Add(comment.UserName);
+        }
+    }
+    foreach(var item in selectedUserNames)
+    {
+        Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode, item);
+    }
+    
+    Console.WriteLine($"Bot detection result count: {Botresult.Count}");
+
+    return Botresult;
+}
     }
     }
 }

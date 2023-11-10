@@ -203,7 +203,7 @@ public class PostJsonModel
         public bool is_pivot_page_available { get; set; }
         public object? mashup_type { get; set; }
         public bool mashups_allowed { get; set; }
-        public int non_privacy_filtered_mashups_media_count { get; set; }
+        public int? non_privacy_filtered_mashups_media_count { get; set; }
         public object? original_media { get; set; }
         public object? privacy_filtered_mashups_media_count { get; set; }
     }
@@ -364,10 +364,10 @@ public class PostJsonModel
 
     public class Square_Crop
     {
-        public int crop_bottom { get; set; }
-        public int crop_left { get; set; }
-        public int crop_right { get; set; }
-        public int crop_top { get; set; }
+        public double? crop_bottom { get; set; }
+        public double? crop_left { get; set; }
+        public double? crop_right { get; set; }
+        public double? crop_top { get; set; }
     }
 
     public class Metrics
@@ -439,7 +439,7 @@ public class PostJsonModel
         public string? username { get; set; }
     }
 
-    public class Fan_Club_Info
+    public class Post_Fan_Club_Info
     {
         public object? autosave_to_exclusive_highlight { get; set; }
         public object? connected_member_count { get; set; }

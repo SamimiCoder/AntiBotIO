@@ -24,11 +24,11 @@ namespace AntiBotIO.Shared.Services
             {
                 commentTexts.Add(new CommentDTO { 
                     comment_text = comment.text, 
-                    created_at = DateTimeOffset.FromUnixTimeSeconds(comment.created_at).DateTime, 
-                    comment_like_count = comment.comment_like_count, 
-                    did_report_as_spam = comment.did_report_as_spam, 
+                    created_at = DateTimeOffset.FromUnixTimeSeconds((long)comment.created_at).DateTime, 
+                    comment_like_count = (int)comment.comment_like_count, 
+                    did_report_as_spam = (bool)comment.did_report_as_spam, 
                     id = comment.id, 
-                    user_id = comment.user_id 
+                    user_id = (long)comment.user_id 
                 });
             }
             return commentTexts;
@@ -53,16 +53,15 @@ namespace AntiBotIO.Shared.Services
             var profileDetails = jsonResponse.data;
 
             List<ProfileDetailDTO> ProfileInfos = new List<ProfileDetailDTO>();
-            foreach (var profileDetail in profileDetails)
-            {
+            
                 ProfileInfos.Add(new ProfileDetailDTO { 
-                    bio_links = profileDetail.bio_links.Select(x => x.url).ToArray(), 
-                    biography = profileDetail.biography, 
-                    follower_count = profileDetail.follower_count, 
-                    following_count = profileDetail.following_count,
-                    username = profileDetail.username
+                    bio_links = profileDetails.bio_links.Select(x => x.url).ToArray(), 
+                    biography = profileDetails.biography, 
+                    follower_count = profileDetails.follower_count, 
+                    following_count = profileDetails.following_count,
+                    username = profileDetails.username
                 });
-            }
+            
             return ProfileInfos;
         }
         public async Task<List<Bots>> DetectBots(string apiKey, string shortCode, string userName)
