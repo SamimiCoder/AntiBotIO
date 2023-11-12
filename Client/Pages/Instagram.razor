@@ -6,62 +6,57 @@
 @inject HttpClient httpClient
 @inject AntiBotIO.Shared.Models.JSONModel jsonModel
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
-@inject AntiBotIO.Shared.Models.PostsDTO posts
-@inject AntiBotIO.Shared.Models.Post MPost
-@inject AntiBotIO.Shared.Services.OperationService operationService
-@inject HttpClient httpClient
-
-<h3>Get Comments</h3>
-<EditForm OnSubmit="@GetPosts" Model="@posts">
-    <InputText @bind-Value="posts.UserName" />
-    <InputNumber @bind-Value="posts.PostCount" />
-    <button type="submit">Get Posts</button>
-</EditForm>
-@if (L_posts.Count > 0)
-{
-    @foreach (var item in L_posts)
+    <h3>Get Comments</h3>
+    <EditForm OnSubmit="@GetPosts" Model="@posts">
+        <InputText @bind-Value="posts.UserName" />
+        <InputNumber @bind-Value="posts.PostCount" />
+        <button type="submit">Get Posts</button>
+    </EditForm>
+    @if (L_posts.Count > 0)
     {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@item.Caption</h5>
-                <p class="card-text">Post Id : @item.Id -- Post Short Code : @item.ShortCode </p>
-                <p class="card-text">Coment Count : @item.CommentCount -- Post Date : @item.Date</p>
-                <button type="button" @onclick="@(async () => await KorumaEkle(item.ShortCode))">Koruma Ekle</button>
-            </div>
-        </div>
-    }
-    <div>
-        @foreach (var item in Botresult)
+        @foreach (var item in L_posts)
         {
-            <div>
-                <p>@item.SuspectRate</p>
-                <p>@item.BotComment</p>
-                <p>@item.BotName</p>
-                <p>@item.BotId</p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Caption</h5>
+                    <p class="card-text">Post Id : @item.Id -- Post Short Code : @item.ShortCode </p>
+                    <p class="card-text">Coment Count : @item.CommentCount -- Post Date : @item.Date</p>
+                    <button type="button" @onclick="@(async () => await KorumaEkle(item.ShortCode))">Koruma Ekle</button>
+                </div>
             </div>
         }
-    </div>
-}
-else if (!string.IsNullOrEmpty(apiResponse))
-{
-    <p>No posts found.</p>
-}
-
-<CommentForm />
-
-@code {
-    private string apiKeyInstagram2;
-    private string DisplayUrl;
-    private string apiResponse;
-    private string DuyuruYazısı;
-    private string ShortCode;
-    List<Post> L_posts = new List<Post>();
-    List<Bots> Botresult = new List<Bots>();
-    List<IGComments> L_comments = new List<IGComments>();
-
-    public async Task<List<Post>> GetPosts()
+        <div>
+            @foreach (var item in Botresult)
+            {
+                <div>
+                    <p>@item.SuspectRate</p>
+                    <p>@item.BotComment</p>
+                    <p>@item.BotName</p>
+                    <p>@item.BotId</p>
+                </div>
+            }
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(apiResponse))
     {
-        Console.WriteLine("GetPosts method called");
+        <p>No posts found.</p>
+    }
+
+    <CommentForm />
+
+    @code {
+        private string apiKeyInstagram2;
+        private string DisplayUrl;
+        private string apiResponse;
+        private string DuyuruYazısı;
+        private string ShortCode;
+        List<Post> L_posts = new List<Post>();
+        List<Bots> Botresult = new List<Bots>();
+        List<IGComments> L_comments = new List<IGComments>();
+
+        public async Task<List<Post>> GetPosts()
+    {
+        Console.WriteLine("GetPosts method called"); // Add this line
 
         // Kullanıcının girdiği verileri alın
         var userName = posts.UserName;
@@ -98,7 +93,6 @@ else if (!string.IsNullOrEmpty(apiResponse))
                 string shortCode = item.code.ToString();
                 DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
                 DisplayUrl = item.display_url.ToString();
-
                 // Create object to hold data
                 Post PostData = new Post();
                 PostData.Caption = postCaption;
@@ -108,7 +102,6 @@ else if (!string.IsNullOrEmpty(apiResponse))
                 PostData.Date = postDate;
                 PostData.DisplayUrl = DisplayUrl;
                 ShortCode = shortCode;
-
                 // Add to list
                 L_posts.Add(PostData);
             }
@@ -120,6 +113,9 @@ else if (!string.IsNullOrEmpty(apiResponse))
             return null;
         }
     }
+        
+    
+    
 
     private async Task<List<Bots>> KorumaEkle(string shortCode)
     {
@@ -127,11 +123,11 @@ else if (!string.IsNullOrEmpty(apiResponse))
         var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
 
         // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
-        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
+        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost?.ShortCode);
         // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
         var CommentUsers =  comments.Select(x => x.user_id).ToList();
         // ADIM 4 : DetectBots methodunu çağır
-        var Botresult = new List<Bots>();
+        
         foreach (var item in CommentUsers)
         {
         Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString());

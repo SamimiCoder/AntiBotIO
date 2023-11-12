@@ -54,4 +54,3 @@ C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Server\obj\Debug\net7.0\refint\AntiBot
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Server\obj\Debug\net7.0\AntiBotIO.Server.pdb
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Server\obj\Debug\net7.0\AntiBotIO.Server.genruntimeconfig.cache
 C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Server\obj\Debug\net7.0\ref\AntiBotIO.Server.dll
-C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\server\obj\Debug\net7.0\AntiBotIO.Server.sourcelink.json

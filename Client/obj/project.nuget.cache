@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ShwM4gVL2q1xWtlrIXE583VmGUoGCskMzmoQx8GhHiVLhnE68PSG5lT2ttUa2PeesdmTc71rUBNhRqRm/tWT7Q==",
+  "dgSpecHash": "h2wA57mauS1fuj0bxOffQfk9YQxGqz/0AlNiAXYS9LhoyXIMHgZbIb+plqgqSZ8NB2RopyOa3m8ud42zyfKI+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Client\\AntiBotIO.Client.csproj",
   "expectedPackageFiles": [
@@ -28,16 +28,10 @@
     "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.jsinterop\\7.0.11\\microsoft.jsinterop.7.0.11.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.jsinterop.webassembly\\7.0.11\\microsoft.jsinterop.webassembly.7.0.11.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.net.illink.analyzers\\7.0.100-1.23211.1\\microsoft.net.illink.analyzers.7.0.100-1.23211.1.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.net.illink.tasks\\7.0.100-1.23211.1\\microsoft.net.illink.tasks.7.0.100-1.23211.1.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\8.0.0-rc.2.23479.6\\microsoft.net.sdk.webassembly.pack.8.0.0-rc.2.23479.6.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.12\\microsoft.netcore.app.ref.7.0.12.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.12\\microsoft.windowsdesktop.app.ref.7.0.12.nupkg.sha512",
-    "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.12\\microsoft.aspnetcore.app.ref.7.0.12.nupkg.sha512"
+    "C:\\Users\\BERKAY\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
