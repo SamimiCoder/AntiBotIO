@@ -5,7 +5,11 @@
 @inject AntiBotIO.Shared.Services.OperationService operationService
 @inject HttpClient httpClient
 @inject AntiBotIO.Shared.Models.JSONModel jsonModel
-
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@inject AntiBotIO.Shared.Models.PostsDTO posts
+@inject AntiBotIO.Shared.Models.Post MPost
+@inject AntiBotIO.Shared.Services.OperationService operationService
+@inject HttpClient httpClient
 
 <h3>Get Comments</h3>
 <EditForm OnSubmit="@GetPosts" Model="@posts">
@@ -18,25 +22,24 @@
     @foreach (var item in L_posts)
     {
         <div class="card" style="width: 18rem;">
-
             <div class="card-body">
                 <h5 class="card-title">@item.Caption</h5>
                 <p class="card-text">Post Id : @item.Id -- Post Short Code : @item.ShortCode </p>
                 <p class="card-text">Coment Count : @item.CommentCount -- Post Date : @item.Date</p>
-                <button type="button" @onclick="@KorumaEkle">Koruma Ekle</button>
+                <button type="button" @onclick="@(async () => await KorumaEkle(item.ShortCode))">Koruma Ekle</button>
             </div>
         </div>
     }
     <div>
-    @foreach (var item in Botresult)
-    {
-        <div>
-            <p>@item.SuspectRate</p>
-            <p>@item.BotComment</p>
-            <p>@item.BotName</p>
-            <p>@item.BotId</p>
-        </div>
-    }
+        @foreach (var item in Botresult)
+        {
+            <div>
+                <p>@item.SuspectRate</p>
+                <p>@item.BotComment</p>
+                <p>@item.BotName</p>
+                <p>@item.BotId</p>
+            </div>
+        }
     </div>
 }
 else if (!string.IsNullOrEmpty(apiResponse))
@@ -46,27 +49,8 @@ else if (!string.IsNullOrEmpty(apiResponse))
 
 <CommentForm />
 
-
-
-@*/**
-    * <summary>
-    * This method sends a request to the Instagram API to get the posts of a user and returns a list of Post objects.
-    * </summary>
-    * <returns>
-    * A list of Post objects.
-    * </returns>
-    */ *@
-@code {
-@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
-
 @code {
     private string apiKeyInstagram2;
-
-    protected override void OnInitialized()
-    {
-        apiKeyInstagram2 = Configuration.GetSection("ApiSettings")["ApiKeyInstagram2"];
-    }
-}
     private string DisplayUrl;
     private string apiResponse;
     private string DuyuruYazısı;
@@ -74,9 +58,10 @@ else if (!string.IsNullOrEmpty(apiResponse))
     List<Post> L_posts = new List<Post>();
     List<Bots> Botresult = new List<Bots>();
     List<IGComments> L_comments = new List<IGComments>();
+
     public async Task<List<Post>> GetPosts()
     {
-        Console.WriteLine("GetPosts method called"); // Add this line
+        Console.WriteLine("GetPosts method called");
 
         // Kullanıcının girdiği verileri alın
         var userName = posts.UserName;
@@ -113,6 +98,7 @@ else if (!string.IsNullOrEmpty(apiResponse))
                 string shortCode = item.code.ToString();
                 DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
                 DisplayUrl = item.display_url.ToString();
+
                 // Create object to hold data
                 Post PostData = new Post();
                 PostData.Caption = postCaption;
@@ -122,6 +108,7 @@ else if (!string.IsNullOrEmpty(apiResponse))
                 PostData.Date = postDate;
                 PostData.DisplayUrl = DisplayUrl;
                 ShortCode = shortCode;
+
                 // Add to list
                 L_posts.Add(PostData);
             }
@@ -134,45 +121,23 @@ else if (!string.IsNullOrEmpty(apiResponse))
         }
     }
 
-        
-        
- async Task<List<Bots>> KorumaEkle()
-{
-    Console.WriteLine("KorumaEkle method called"); // Add this line
-    // Tıklanan butona karşılık gelen Post nesnesini bulun
-    Post selectedPost = null;
-    foreach (var post in L_posts)
+    private async Task<List<Bots>> KorumaEkle(string shortCode)
     {
-        Console.WriteLine("foreach statement reached");
-        if (post.ShortCode == ShortCode)
-        {
-            Console.WriteLine("if statement reached");
-            selectedPost = post;
-        }
-    }
-    List<string> userNames = new List<string>();
-    foreach (var comment in L_comments)
-    {
-        userNames.Add(comment.UserName);
-    }
+        // ADIM 1 : SELECTED POST U BUL
+        var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
 
-    List<string> selectedUserNames = new List<string>();
-    foreach (var comment in L_comments)
-    {
-        if (comment.ShortCode == selectedPost.Id)
+        // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
+        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
+        // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
+        var CommentUsers =  comments.Select(x => x.user_id).ToList();
+        // ADIM 4 : DetectBots methodunu çağır
+        var Botresult = new List<Bots>();
+        foreach (var item in CommentUsers)
         {
-            selectedUserNames.Add(comment.UserName);
+        Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString());
         }
-    }
-    foreach(var item in selectedUserNames)
-    {
-        Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode, item);
-    }
-    
-    Console.WriteLine($"Bot detection result count: {Botresult.Count}");
-
-    return Botresult;
-}
-    }
+        // ADIM 5 : DetectBots methodundan gelen sonucu Botresult listesine ekle
+        // ADIM 6 : Botresult listesini return et
+        return Botresult;
     }
 }
