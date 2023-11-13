@@ -9,7 +9,7 @@
     <h3>Get Comments</h3>
     <EditForm OnSubmit="@GetPosts" Model="@posts">
         <InputText @bind-Value="posts.UserName" />
-        <InputNumber @bind-Value="posts.PostCount" />
+        
         <button type="submit">Get Posts</button>
     </EditForm>
     @if (L_posts.Count > 0)
@@ -60,7 +60,7 @@
 
         // Kullanıcının girdiği verileri alın
         var userName = posts.UserName;
-        var postCount = posts.PostCount;
+        
 
         // Web API'ye gönderilecek verileri oluşturun
         var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
@@ -70,15 +70,17 @@
         {
             // Web API'den gelen yanıtı alın
             apiResponse = await request.Content.ReadAsStringAsync();
+            if (apiResponse.StartsWith("<"))
+            {
+                Console.WriteLine(apiResponse.ToString());
+                return null;
+            }
 
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<AntiBotIO.Shared.Models.JSONModel>(apiResponse);
 
-            if (postCount > jsonResponse.data.items.Count)
-            {
-                postCount = jsonResponse.data.items.Count;
-            }
+            
 
-            for (int i = 0; i < postCount && i < jsonResponse.data.items.Count; i++)
+            for (int i = 0; i < jsonResponse.data.count && i < jsonResponse.data.items.Count; i++)
             {
                 var item = jsonResponse.data.items[i];
 
@@ -121,9 +123,9 @@
     {
         // ADIM 1 : SELECTED POST U BUL
         var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
-
+        Console.WriteLine(selectedPost.ShortCode);
         // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
-        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost?.ShortCode);
+        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
         // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
         var CommentUsers =  comments.Select(x => x.user_id).ToList();
         // ADIM 4 : DetectBots methodunu çağır

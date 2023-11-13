@@ -23,7 +23,7 @@ namespace AntiBotIO.Controllers
         [HttpGet("GetComments")]
         public async Task<string> GetComments(string ShortCode)
         {
-            var result = await _instaService.GetComments(_apiKeyInstagram2, ShortCode);
+            var result = await _instaService.GetComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", ShortCode);
             return result;
         }
         
@@ -31,7 +31,7 @@ namespace AntiBotIO.Controllers
         [HttpGet("GetPosts")]
         public async Task<string> GetPosts( string userId)
         {
-            var result = await _instaService.GetPosts(_apiKeyInstagram2, userId);
+            var result = await _instaService.GetPosts("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", userId);
             return result;
         }
     }
