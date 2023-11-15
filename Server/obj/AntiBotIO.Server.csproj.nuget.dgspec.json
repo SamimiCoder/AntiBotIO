@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj": {}
+    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj": {}
   },
   "projects": {
     "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Client\\AntiBotIO.Client.csproj": {
@@ -58,6 +58,24 @@
               "target": "Package",
               "version": "[7.0.11, )"
             },
+            "Microsoft.NET.ILLink.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.100-1.23211.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.100-1.23211.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NET.Sdk.WebAssembly.Pack": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )",
+              "autoReferenced": true
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -74,12 +92,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+              "version": "[7.0.14, 7.0.14]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -88,14 +112,14 @@
         }
       }
     },
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj": {
+    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj",
+        "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
         "projectName": "AntiBotIO.Server",
-        "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj",
+        "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
         "packagesPath": "C:\\Users\\BERKAY\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\obj\\",
+        "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -164,7 +188,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -230,7 +254,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

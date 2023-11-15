@@ -17,6 +17,7 @@
         @foreach (var item in L_posts)
         {
             <div class="card" style="width: 18rem;">
+                
                 <div class="card-body">
                     <h5 class="card-title">@item.Caption</h5>
                     <p class="card-text">Post Id : @item.Id -- Post Short Code : @item.ShortCode </p>
@@ -42,7 +43,7 @@
         <p>No posts found.</p>
     }
 
-    <CommentForm />
+    
 
     @code {
         private string apiKeyInstagram2;

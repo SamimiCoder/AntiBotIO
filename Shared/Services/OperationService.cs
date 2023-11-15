@@ -102,14 +102,14 @@ namespace AntiBotIO.Shared.Services
                     SuspiciousRate += 15;
                     possibilities.IsProfileBioHasSuspiciousWords = true;
                 }
-                else if (profile.bio_links[0].Contains("t.me"))
+                else if (profile.bio_links.Length !< 0 && profile.bio_links[0].Contains("t.me"))
                 {
                     SuspiciousRate += 20;
                     possibilities.IsProfileBioLinkIsTelegram = true;
                 }
             }
             Console.WriteLine(SuspiciousRate);
-            if (SuspiciousRate >= 5)
+            if (SuspiciousRate >= 50)
             {
                 Console.WriteLine("Bir bot tespit edildi");
                 Console.WriteLine(SuspiciousRate);

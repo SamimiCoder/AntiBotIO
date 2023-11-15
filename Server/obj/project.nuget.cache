@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oYR0LUZ5Iw393azXjUkFlsus/RKKe+N6MKIJjwQbzdPCIWhzw+gYJNeii1qyJD+68jDb3B5LwyvLB2fxeUah2A==",
+  "dgSpecHash": "qwXDX4U4g0bCjunkWFunmPE8erPrxO3djxnT+PBQJURwZ0ePiEqmGQfPc8v0kFfhnkeg9it+NtMzWvnZF09G4A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\server\\AntiBotIO.Server.csproj",
+  "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Server\\AntiBotIO.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.11\\microsoft.aspnetcore.authorization.7.0.11.nupkg.sha512",
     "C:\\Users\\BERKAY\\.nuget\\packages\\microsoft.aspnetcore.components\\7.0.11\\microsoft.aspnetcore.components.7.0.11.nupkg.sha512",
