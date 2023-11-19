@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj": {}
+    "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj": {
+    "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
         "projectName": "AntiBotIO.Shared",
-        "projectPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
-        "packagesPath": "C:\\Users\\BERKAY\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+        "packagesPath": "C:\\Users\\berka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\BERKAY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\berka\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

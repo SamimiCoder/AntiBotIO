@@ -56,87 +56,88 @@
         List<IGComments> L_comments = new List<IGComments>();
 
         public async Task<List<Post>> GetPosts()
-    {
-        Console.WriteLine("GetPosts method called"); // Add this line
-
-        // Kullanıcının girdiği verileri alın
-        var userName = posts.UserName;
-        
-
-        // Web API'ye gönderilecek verileri oluşturun
-        var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
-
-        // Web API'ye istek gönderin
-        if (request.IsSuccessStatusCode)
         {
-            // Web API'den gelen yanıtı alın
-            apiResponse = await request.Content.ReadAsStringAsync();
-            if (apiResponse.StartsWith("<"))
+            Console.WriteLine("GetPosts method called"); // Add this line
+
+            // Kullanıcının girdiği verileri alın
+            var userName = posts.UserName;
+
+
+            // Web API'ye gönderilecek verileri oluşturun
+            var request = await httpClient.GetAsync($"api/Instagram/GetPosts?userId={userName}");
+
+            // Web API'ye istek gönderin
+            if (request.IsSuccessStatusCode)
             {
-                Console.WriteLine(apiResponse.ToString());
+                // Web API'den gelen yanıtı alın
+                apiResponse = await request.Content.ReadAsStringAsync();
+                if (apiResponse.StartsWith("<"))
+                {
+                    Console.WriteLine(apiResponse.ToString());
+                    return null;
+                }
+
+                var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<AntiBotIO.Shared.Models.JSONModel>(apiResponse);
+
+
+
+                for (int i = 0; i < jsonResponse.data.count && i < jsonResponse.data.items.Count; i++)
+                {
+                    var item = jsonResponse.data.items[i];
+
+                    // Extract post data
+                    string postCaption = string.Empty;
+                    if (item.captions.items.Count > 0)
+                    {
+                        postCaption = item.captions.items[0].ToString();
+                    }
+                    string commentCount = item.comments.count.ToString();
+                    string postId = item.id.ToString();
+                    string shortCode = item.code.ToString();
+                    DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
+                    DisplayUrl = item.display_url.ToString();
+                    // Create object to hold data
+                    Post PostData = new Post();
+                    PostData.Caption = postCaption;
+                    PostData.CommentCount = commentCount;
+                    PostData.Id = postId;
+                    PostData.ShortCode = shortCode;
+                    PostData.Date = postDate;
+                    PostData.DisplayUrl = DisplayUrl;
+                    ShortCode = shortCode;
+                    // Add to list
+                    L_posts.Add(PostData);
+                }
+                return L_posts;
+            }
+            else
+            {
+                // Handle the case where the request fails
                 return null;
             }
+        }
 
-            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<AntiBotIO.Shared.Models.JSONModel>(apiResponse);
 
-            
 
-            for (int i = 0; i < jsonResponse.data.count && i < jsonResponse.data.items.Count; i++)
+
+        private async Task<List<Bots>> KorumaEkle(string shortCode)
+        {
+            // ADIM 1 : SELECTED POST U BUL
+            var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
+            Console.WriteLine(selectedPost.ShortCode);
+            // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
+            var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
+            Console.WriteLine(comments.Count);
+            // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
+            var CommentUsers =  comments.Select(x => x.user_id).ToList();
+            // ADIM 4 : DetectBots methodunu çağır
+
+            foreach (var item in CommentUsers)
             {
-                var item = jsonResponse.data.items[i];
-
-                // Extract post data
-                string postCaption = string.Empty;
-                if (item.captions.items.Count > 0)
-                {
-                    postCaption = item.captions.items[0].ToString();
-                }
-                string commentCount = item.comments.count.ToString();
-                string postId = item.id.ToString();
-                string shortCode = item.code.ToString();
-                DateTime postDate = DateTimeOffset.FromUnixTimeSeconds(item.taken_at_timestamp).DateTime;
-                DisplayUrl = item.display_url.ToString();
-                // Create object to hold data
-                Post PostData = new Post();
-                PostData.Caption = postCaption;
-                PostData.CommentCount = commentCount;
-                PostData.Id = postId;
-                PostData.ShortCode = shortCode;
-                PostData.Date = postDate;
-                PostData.DisplayUrl = DisplayUrl;
-                ShortCode = shortCode;
-                // Add to list
-                L_posts.Add(PostData);
+                Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString());
             }
-            return L_posts;
+            // ADIM 5 : DetectBots methodundan gelen sonucu Botresult listesine ekle
+            // ADIM 6 : Botresult listesini return et
+            return Botresult;
         }
-        else
-        {
-            // Handle the case where the request fails
-            return null;
-        }
-    }
-        
-    
-    
-
-    private async Task<List<Bots>> KorumaEkle(string shortCode)
-    {
-        // ADIM 1 : SELECTED POST U BUL
-        var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
-        Console.WriteLine(selectedPost.ShortCode);
-        // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
-        var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
-        // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
-        var CommentUsers =  comments.Select(x => x.user_id).ToList();
-        // ADIM 4 : DetectBots methodunu çağır
-        
-        foreach (var item in CommentUsers)
-        {
-        Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString());
-        }
-        // ADIM 5 : DetectBots methodundan gelen sonucu Botresult listesine ekle
-        // ADIM 6 : Botresult listesini return et
-        return Botresult;
-    }
 }

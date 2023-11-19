@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "u503hAt1k0v+tAkKxqA8m8cFvHRvu+ba+eyz7kB9ac6uMGolCJ5sTtubkiMj1WzP82AmYSDgg5WrRvIDYv7enQ==",
+  "dgSpecHash": "RwJaLdrtI9pvg2b89Xno+jszOpoTMlKThm9VJ6oEjHmNcnAKTdkHX9QVEqdbkKnCL8bTMWOzFp8BQ6H5QYN/8Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\BERKAY\\Desktop\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
+  "projectFilePath": "C:\\Users\\berka\\OneDrive\\Masaüstü\\AntiBot\\AntiBotIO\\Shared\\AntiBotIO.Shared.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\BERKAY\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\berka\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }

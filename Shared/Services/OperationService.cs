@@ -14,9 +14,10 @@ namespace AntiBotIO.Shared.Services
             _ınstagramService = ınstagramService;
             _comments = comments;
         }
-        public async Task<List<CommentDTO>> ReadComments(string ApiKey, string ShortCode)
+        public async Task<List<CommentDTO>> ReadComments(string ApiKey, string ShortCode, string? paginationToken)
         {
-            var result = await _ınstagramService.GetComments(ApiKey, ShortCode);
+            var result = await _ınstagramService.GetComments(ApiKey, ShortCode,paginationToken);
+            
             var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result);
             var comments = jsonResponse.data;
             List<CommentDTO> commentTexts = new List<CommentDTO>();
@@ -24,7 +25,7 @@ namespace AntiBotIO.Shared.Services
             {
                 commentTexts.Add(new CommentDTO { 
                     comment_text = comment.text, 
-                    created_at = DateTimeOffset.FromUnixTimeSeconds((long)comment.created_at).DateTime, 
+                    created_at = DateTimeOffset.FromUnixTimeSeconds((long)comment.created_at).DateTime,
                     comment_like_count = (int)comment.comment_like_count, 
                     did_report_as_spam = (bool)comment.did_report_as_spam, 
                     id = comment.id, 
@@ -54,7 +55,7 @@ namespace AntiBotIO.Shared.Services
 
             List<ProfileDetailDTO> ProfileInfos = new List<ProfileDetailDTO>();
             
-                ProfileInfos.Add(new ProfileDetailDTO { 
+                ProfileInfos.Add(new ProfileDetailDTO {
                     bio_links = profileDetails.bio_links.Select(x => x.url).ToArray(), 
                     biography = profileDetails.biography, 
                     follower_count = profileDetails.follower_count, 
@@ -64,9 +65,9 @@ namespace AntiBotIO.Shared.Services
             
             return ProfileInfos;
         }
-        public async Task<List<Bots>> DetectBots(string apiKey, string shortCode, string userName)
+        public async Task<List<Bots>> DetectBots(string apiKey, string shortCode, string userName,string? PaginationToken)
         {
-            var commentList = await ReadComments(apiKey, shortCode);
+            var commentList = (await ReadComments(apiKey, shortCode,PaginationToken)).ToList();
             var postDetailList = (await ReadPostDetails(apiKey, shortCode)).ToList();
             var profileDetailList = (await ReadProfileDetails(apiKey, userName)).ToList();
             DetectionPossibilities possibilities = new DetectionPossibilities();
@@ -81,7 +82,7 @@ namespace AntiBotIO.Shared.Services
                 }
                 if (ContainsSpecialCharacters(comment.comment_text))
                 {
-                    SuspiciousRate += 20;
+                    SuspiciousRate += 10;
                     possibilities.IsTextContainsSpecialCaracters = true;
                 }
             }
@@ -104,7 +105,7 @@ namespace AntiBotIO.Shared.Services
                 }
                 else if (profile.bio_links.Length !< 0 && profile.bio_links[0].Contains("t.me"))
                 {
-                    SuspiciousRate += 20;
+                    SuspiciousRate += 15;
                     possibilities.IsProfileBioLinkIsTelegram = true;
                 }
             }

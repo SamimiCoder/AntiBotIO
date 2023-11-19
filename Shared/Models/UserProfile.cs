@@ -43,7 +43,7 @@ namespace AntiBotIO.Shared.Models
         public bool? can_use_branded_content_discovery_as_brand { get; set; }
         public bool? can_use_branded_content_discovery_as_creator { get; set; }
         public string? category { get; set; }
-        public int? category_id { get; set; }
+        public long? category_id { get; set; }
         public int? city_id { get; set; }
         public string? city_name { get; set; }
         public string? contact_phone_number { get; set; }

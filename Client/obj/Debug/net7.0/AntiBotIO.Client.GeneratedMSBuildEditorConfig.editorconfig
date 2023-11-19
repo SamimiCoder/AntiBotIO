@@ -13,55 +13,55 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = AntiBotIO.Client
 build_property.RootNamespace = AntiBotIO.Client
-build_property.ProjectDir = C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client\
+build_property.ProjectDir = C:\Users\berka\OneDrive\Masaüstü\AntiBot\AntiBotIO\Client\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\BERKAY\Desktop\AntiBot\AntiBotIO\Client
+build_property.MSBuildProjectDirectory = C:\Users\berka\OneDrive\Masaüstü\AntiBot\AntiBotIO\Client
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/App.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Pages/Counter.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Pages/FetchData.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Pages/Index.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Pages/Instagram.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Pages/Instagram.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdGFncmFtLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/SurveyPrompt.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/_Imports.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/CommentForm.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Shared/CommentForm.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbW1lbnRGb3JtLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-gc5w1ecsrx
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/MainLayout.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-59f0js58u1
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/NavMenu.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-y6hcjicjl0
 
-[C:/Users/BERKAY/Desktop/AntiBot/AntiBotIO/Client/Shared/PostForm.razor]
+[C:/Users/berka/OneDrive/Masaüstü/AntiBot/AntiBotIO/Client/Shared/PostForm.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBvc3RGb3JtLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-9msy9dw9lr

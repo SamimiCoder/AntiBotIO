@@ -6,13 +6,13 @@ namespace AntiBotIO.Shared.Services
 {
     public class InstagramService : IInstagramService
     {
-        public async Task<string> GetComments(string ApiKey, string ShortCode)
+        public async Task<string> GetComments(string ApiKey, string ShortCode, string? PaginationToken)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}"),
+                RequestUri = PaginationToken == null ? new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}") : new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}&pagination_token={PaginationToken}"),
                 Headers =
                 {
                     { "X-RapidAPI-Key", $"{ApiKey}" },
