@@ -9,5 +9,6 @@ namespace Shared.Models
         public bool did_report_as_spam { get; set; }
         public string id { get; set; }
         public long user_id { get; set; }
+        public string? paginationToken { get; set; }
     }
 }

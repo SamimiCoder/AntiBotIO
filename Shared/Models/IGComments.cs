@@ -9,6 +9,7 @@
         public string? ProfilePicture { get; set; }
         public DateTime? Date { get; set; }
         public string? UserName { get; set; }
+
     }
     public class Rootobject
     {
@@ -18,6 +19,7 @@
     public class CommentJsonModel
     {
         public DataComment? data { get; set; }
+        public Rootobject[]? rootObject { get; set; }
         public object? Pagination { get; set; }
     }
     public class DataComment
@@ -26,6 +28,7 @@
         public long? count { get; set; }
         public CommentItems[]? items { get; set; }
         public long? total { get; set; }
+        
     }
 
     public class Additional_Data
@@ -109,6 +112,7 @@
         public long? user_id { get; set; }
         public bool? has_more_head_child_comments { get; set; }
         public bool? has_more_tail_child_comments { get; set; }
+        
     }
 
     public class User1

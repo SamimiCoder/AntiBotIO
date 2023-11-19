@@ -16,10 +16,19 @@ namespace AntiBotIO.Shared.Services
         }
         public async Task<List<CommentDTO>> ReadComments(string ApiKey, string ShortCode, string? paginationToken)
         {
-            var result = await _ınstagramService.GetComments(ApiKey, ShortCode,paginationToken);
-            
-            var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result);
+            CommentJsonModel jsonResponse=null;
+            do {
+                var result = await _ınstagramService.GetComments(ApiKey, ShortCode, paginationToken);
+
+                 jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result);
+            } while (paginationToken == null);
             var comments = jsonResponse.data;
+            var GeneralComments = jsonResponse;
+            string PaginationToken = "";
+            foreach (var paginate in GeneralComments.rootObject)
+            {
+                PaginationToken = paginate.pagination_token;
+            }
             List<CommentDTO> commentTexts = new List<CommentDTO>();
             foreach (var comment in comments.items)
             {
@@ -29,7 +38,37 @@ namespace AntiBotIO.Shared.Services
                     comment_like_count = (int)comment.comment_like_count, 
                     did_report_as_spam = (bool)comment.did_report_as_spam, 
                     id = comment.id, 
-                    user_id = (long)comment.user_id 
+                    user_id = (long)comment.user_id,
+                    paginationToken = PaginationToken
+                    
+                });
+            }
+            return commentTexts;
+        }
+        public async Task<List<CommentDTO>> ReadComments(string ApiKey, string ShortCode)
+        {
+            
+           
+                var result = await _ınstagramService.GetComments(ApiKey, ShortCode);
+
+                var jsonResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<CommentJsonModel>(result);
+            
+            var comments = jsonResponse.data;
+            
+            List<CommentDTO> commentTexts = new List<CommentDTO>();
+            
+            
+            foreach (var comment in comments.items)
+            {
+                commentTexts.Add(new CommentDTO
+                {
+                    comment_text = comment.text,
+                    created_at = DateTimeOffset.FromUnixTimeSeconds((long)comment.created_at).DateTime,
+                    comment_like_count = (int)comment.comment_like_count,
+                    did_report_as_spam = (bool)comment.did_report_as_spam,
+                    id = comment.id,
+                    user_id = (long)comment.user_id,
+                    paginationToken = ""
                 });
             }
             return commentTexts;

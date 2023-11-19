@@ -6,13 +6,34 @@ namespace AntiBotIO.Shared.Services
 {
     public class InstagramService : IInstagramService
     {
-        public async Task<string> GetComments(string ApiKey, string ShortCode, string? PaginationToken)
+        public async Task<string> GetComments(string ApiKey, string ShortCode, string PaginationToken)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = PaginationToken == null ? new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}") : new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}&pagination_token={PaginationToken}"),
+                RequestUri =new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}&pagination_token={PaginationToken}"),
+                Headers =
+                {
+                    { "X-RapidAPI-Key", $"{ApiKey}" },
+                    { "X-RapidAPI-Host", "instagram-scraper-api2.p.rapidapi.com" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var bodyBytes = await response.Content.ReadAsByteArrayAsync();
+                var body = Encoding.UTF8.GetString(bodyBytes);
+                return body;
+            }
+        }
+        public async Task<string> GetComments(string ApiKey, string ShortCode)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://instagram-scraper-api2.p.rapidapi.com/v1/comments?code_or_id_or_url={ShortCode}"),
                 Headers =
                 {
                     { "X-RapidAPI-Key", $"{ApiKey}" },

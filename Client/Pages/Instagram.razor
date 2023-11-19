@@ -3,6 +3,7 @@
 @inject AntiBotIO.Shared.Models.PostsDTO posts
 @inject AntiBotIO.Shared.Models.Post MPost
 @inject AntiBotIO.Shared.Services.OperationService operationService
+@inject AntiBotIO.Shared.Services.IInstagramService instagramService
 @inject HttpClient httpClient
 @inject AntiBotIO.Shared.Models.JSONModel jsonModel
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
@@ -51,6 +52,7 @@
         private string apiResponse;
         private string DuyuruYazısı;
         private string ShortCode;
+        private string PaginationToken;
         List<Post> L_posts = new List<Post>();
         List<Bots> Botresult = new List<Bots>();
         List<IGComments> L_comments = new List<IGComments>();
@@ -105,6 +107,7 @@
                     PostData.Date = postDate;
                     PostData.DisplayUrl = DisplayUrl;
                     ShortCode = shortCode;
+
                     // Add to list
                     L_posts.Add(PostData);
                 }
@@ -124,17 +127,19 @@
         {
             // ADIM 1 : SELECTED POST U BUL
             var selectedPost = L_posts.Where(x => x.ShortCode == shortCode).FirstOrDefault();
+            var commentResult = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379", selectedPost.ShortCode);
+            string paginationToken = commentResult.FirstOrDefault().paginationToken;
+            
             Console.WriteLine(selectedPost.ShortCode);
             // ADIM 2 : SELECTED POST İÇİNDE Kİ COMMENTLERİ GEZ
-            var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode);
+            var comments = await operationService.ReadComments("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode,paginationToken);
             Console.WriteLine(comments.Count);
             // ADIM 3 : SELECTED COMMENTLERİN İÇİNDE Kİ KULLANICILARI GEZ
             var CommentUsers =  comments.Select(x => x.user_id).ToList();
             // ADIM 4 : DetectBots methodunu çağır
-
             foreach (var item in CommentUsers)
             {
-                Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString());
+                Botresult = await operationService.DetectBots("93c69a6203msh96b9c85191e699dp163d77jsn692b8a32a379",selectedPost.ShortCode, item.ToString(),paginationToken);
             }
             // ADIM 5 : DetectBots methodundan gelen sonucu Botresult listesine ekle
             // ADIM 6 : Botresult listesini return et
